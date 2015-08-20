@@ -542,6 +542,19 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     var headers = response.headers;
     content = jQuery.trim(content);
 
+    if(url.indexOf('logout') !== -1){
+      window.swaggerUi.api.clientAuthorizations.remove('authorization', apiKeyAuth);
+    }
+
+    var data = JSON.parse(content);
+    if(data.token) {
+       var key = encodeURIComponent(data.token);
+       if(key && key.trim() !== '') {
+           var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization('authorization', key, 'header');
+           window.swaggerUi.api.clientAuthorizations.add('authorization', apiKeyAuth);
+       }
+    }
+
     // if server is nice, and sends content-type back, we can use it
     var contentType = null;
     if (headers) {

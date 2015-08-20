@@ -85,7 +85,7 @@ gulp.task('dist', ['clean','lint'], function() {
 
 /**
  * Processes less files into CSS files
- */
+ 
 gulp.task('less', ['clean'], function() {
 
   return gulp
@@ -100,12 +100,24 @@ gulp.task('less', ['clean'], function() {
     .pipe(gulp.dest('./src/main/html/css/'))
     .pipe(connect.reload());
 });
-
+*/
 
 /**
  * Copy lib and html folders
  */
-gulp.task('copy', ['less'], function() {
+gulp.task('copy', ['clean'], function() {
+
+  // copy all CSS files
+  gulp
+    .src(['./src/main/html/css/**'])
+    .pipe(gulp.dest('./dist/css'))
+    .on('error', log);
+
+  // copy all API json files
+  gulp
+    .src(['./src/main/api/**'])
+    .pipe(gulp.dest('./dist/api'))
+    .on('error', log);
 
   // copy JavaScript files inside lib folder
   gulp
@@ -124,6 +136,7 @@ gulp.task('copy', ['less'], function() {
     .src(['./src/main/html/**/*'])
     .pipe(gulp.dest('./dist'))
     .on('error', log);
+
 });
 
 /**

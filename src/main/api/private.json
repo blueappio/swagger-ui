@@ -1,0 +1,357 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "BlueApp API's"
+    },
+    "host": "dev.blueapp.io",
+    "schemes": [
+        "http"
+    ],
+    "basePath": "/v1",
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Add User",
+                "description": "Add user with the following parameters \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Add user",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/signup"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "300": {
+                        "description": "Email already registered"
+                    },
+                    "403": {
+                        "description": "Invalid Details"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/invitationaccept/{invitation_id}": {
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "invitation accept",
+                "description": "service for invitation accept \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "invitation_id",
+                        "description": "invitation accept",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/inviteusers": {
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "invite user",
+                "description": "service for invite user \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "invite user",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/inviteuser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/updateinvitation": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "updateinvitation",
+                "description": "service for updateinvitation \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "updateinvitation",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/updateinvitation"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/users/me/forgotpassword": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "forgotpassword",
+                "description": "forgotpassword \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "forgotpassword",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/forgotpassword"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "400": {
+                        "description": "Check your email."
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/users/me/changepassword": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "changepassword",
+                "description": "changepassword \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "changepassword",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/forgotpassword"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "properties": {
+                                "token": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Check your email."
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/users/me/updatepassword": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "updatepassword",
+                "description": "updatepassword \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "updatepassword",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/updatepassword"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "400": {
+                        "description": "Already Used Password."
+                    }
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "api_key": {
+            "type": "apiKey",
+            "name": "authorization",
+            "in": "header"
+        }
+    },
+    "definitions": {
+        "signup":{
+            "properties": {
+                "first_name": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "org_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "inviteuser":{
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "integer"
+                },
+                "org_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "updateinvitation":{
+            "properties": {
+                "chkemail": {
+                    "type": "string"
+                }
+            }
+        },
+        "forgotpassword":{
+            "properties": {
+                "email": {
+                    "type": "string"
+                }
+            }
+        },
+        "updatepassword":{
+            "properties": {
+                "token": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

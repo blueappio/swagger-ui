@@ -124,6 +124,7 @@ window.SwaggerUi = Backbone.Router.extend({
       swaggerOptions: this.options,
       router: this
     }).render();
+    this.listAll();
     this.showMessage();
     switch (this.options.docExpansion) {
       case 'full':

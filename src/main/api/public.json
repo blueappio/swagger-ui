@@ -1,0 +1,2699 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "BlueApp API's"
+    },
+    "host": "dev.blueapp.io",
+    "schemes": [
+        "http"
+    ],
+    "basePath": "/v1",
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Login",
+                "description": "Login the user with the following parameters \n",
+                "operationId": "login",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "body",
+                    "name": "body",
+                    "description": "Login",
+                    "required": false,
+                    "schema": {
+                        "$ref": "#/definitions/login"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/user"
+                        }
+                    },
+                    "400": {
+                        "description": "Your account has been locked, please try again after two hours."
+                    },
+                    "401": {
+                        "description": "Incorrect username & password"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "get": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Logout",
+                "description": "Logout \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "LogoutSuccessful"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        },
+        "/organizations/{org_id}/applications": {
+            "get": {
+                "tags": [
+                    "Applications"
+                ],
+                "summary": "Get all applications in this organization",
+                "description": "returns information about the applications offered at a given organization. \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "title": "ArrayOfapplications",
+                            "type": "array",
+                            "items": {
+                                "title": "applications",
+                                "type": "object",
+                                "properties": {
+                                    "application_id": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "version": {
+                                        "type": "string"
+                                    },
+                                    "state": {
+                                        "type": "string"
+                                    },
+                                    "created_date": {
+                                        "type": "string"
+                                    },
+                                    "lastupdated_date": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        },
+        "/organizations/{org_id}/applications/{app_id}": {
+            "put": {
+                "tags": [
+                    "Applications"
+                ],
+                "summary": "Update applications in this organization",
+                "description": "Delete applications offered at a given organization. \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "in": "path",
+                    "name": "app_id",
+                    "description": "ID of application",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        },
+        "/organizations/{org_id}/devicetypes": {
+            "get": {
+                "tags": [
+                    "Device Type"
+                ],
+                "summary": "Get devicetypes",
+                "description": "devicetype. \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "title": "Devices",
+                                "type": "object",
+                                "properties": {
+                                    "device_type_id": {
+                                        "type": "string"
+                                    },
+                                    "device_type_name": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        },
+        "/organizations/{org_id}/devices": {
+            "get": {
+                "tags": [
+                    "Devices"
+                ],
+                "summary": "Get all devices in this organization",
+                "description": "The Devices endpoint returns information about the  devices offered at a given organization. \n",
+                "operationId": "getDevices",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "title": "ArrayOfDevices",
+                            "type": "array",
+                            "items": {
+                                "title": "Devices",
+                                "type": "object",
+                                "properties": {
+                                    "device_id": {
+                                        "type": "string"
+                                    },
+                                    "org_id": {
+                                        "type": "string"
+                                    },
+                                    "bt_address": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "device_type": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "firmware": {
+                                        "type": "string"
+                                    },
+                                    "hardware_version": {
+                                        "type": "string"
+                                    },
+                                    "software_version": {
+                                        "type": "string"
+                                    },
+                                    "manufacturer_name": {
+                                        "type": "string"
+                                    },
+                                    "model_number": {
+                                        "type": "string"
+                                    },
+                                    "system_id": {
+                                        "type": "string"
+                                    },
+                                    "serial_number": {
+                                        "type": "string"
+                                    },
+                                    "wifi_macaddress": {
+                                        "type": "string"
+                                    },
+                                    "ethernet_macaddress": {
+                                        "type": "string"
+                                    },
+                                    "wifi_name": {
+                                        "type": "string"
+                                    },
+                                    "wifi_pwd": {
+                                        "type": "string"
+                                    },
+                                    "update_date": {
+                                        "type": "string"
+                                    },
+                                    "created_user": {
+                                        "type": "string"
+                                    },
+                                    "tag": {
+                                        "type": "string"
+                                    },
+                                    "device_status": {
+                                        "type": "string"
+                                    },
+                                    "device_uuid": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Invalid Details"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            },
+            "post": {
+                "tags": [
+                    "Devices"
+                ],
+                "summary": "Add device in this organization",
+                "description": "Insert device with the following parameters \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "in": "body",
+                    "name": "body",
+                    "description": "Insert device",
+                    "required": false,
+                    "schema": {
+                        "$ref": "#/definitions/deviceadd"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successfull response"
+                    },
+                    "403": {
+                        "description": "Invalid Details"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        },
+        "/organizations/{org_id}/devices/{device_id}": {
+            "get": {
+                "tags": [
+                    "Devices"
+                ],
+                "summary": "Get a device in this organization",
+                "description": "The Devices endpoint returns information about the  devices offered at a given organization. \n",
+                "operationId": "getDevices",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "in": "path",
+                    "name": "device_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "title": "ArrayOfDevices",
+                            "type": "array",
+                            "items": {
+                                "title": "Devices",
+                                "type": "object",
+                                "properties": {
+                                    "device_id": {
+                                        "type": "string"
+                                    },
+                                    "org_id": {
+                                        "type": "string"
+                                    },
+                                    "bt_address": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "device_type": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "firmware": {
+                                        "type": "string"
+                                    },
+                                    "hardware_version": {
+                                        "type": "string"
+                                    },
+                                    "software_version": {
+                                        "type": "string"
+                                    },
+                                    "manufacturer_name": {
+                                        "type": "string"
+                                    },
+                                    "model_number": {
+                                        "type": "string"
+                                    },
+                                    "system_id": {
+                                        "type": "string"
+                                    },
+                                    "serial_number": {
+                                        "type": "string"
+                                    },
+                                    "wifi_macaddress": {
+                                        "type": "string"
+                                    },
+                                    "ethernet_macaddress": {
+                                        "type": "string"
+                                    },
+                                    "wifi_name": {
+                                        "type": "string"
+                                    },
+                                    "wifi_pwd": {
+                                        "type": "string"
+                                    },
+                                    "update_date": {
+                                        "type": "string"
+                                    },
+                                    "created_user": {
+                                        "type": "string"
+                                    },
+                                    "tag": {
+                                        "type": "string"
+                                    },
+                                    "device_status": {
+                                        "type": "string"
+                                    },
+                                    "device_uuid": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Invalid Details"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            },
+            "delete": {
+                "tags": [
+                    "Devices"
+                ],
+                "summary": "Delete device in this organization",
+                "description": "Delete the device \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "in": "path",
+                    "name": "device_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            },
+            "put": {
+                "tags": [
+                    "Devices"
+                ],
+                "summary": "Update device in this organization",
+                "description": "Update your selected device with the following parameters \n",
+                "operationId": "getDevices",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "in": "path",
+                    "name": "device_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "in": "body",
+                    "name": "body",
+                    "description": "update device",
+                    "required": false,
+                    "schema": {
+                        "$ref": "#/definitions/deviceupdate"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successfull response"
+                    },
+                    "403": {
+                        "description": "Invalid Details"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        },
+        "/organizations/{org_id}/devices/{deviceuuid}/macaddress": {
+            "get": {
+                "tags": [
+                    "Devices"
+                ],
+                "summary": "Find a device",
+                "description": "Get the Devices with the macaddress. \n",
+                "operationId": "getDevices",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "in": "path",
+                    "name": "deviceuuid",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "title": "ArrayOfDevices",
+                            "type": "array",
+                            "items": {
+                                "title": "Devices",
+                                "type": "object",
+                                "properties": {
+                                    "device_id": {
+                                        "type": "string"
+                                    },
+                                    "org_id": {
+                                        "type": "string"
+                                    },
+                                    "bt_address": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "device_type": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "firmware": {
+                                        "type": "string"
+                                    },
+                                    "hardware_version": {
+                                        "type": "string"
+                                    },
+                                    "software_version": {
+                                        "type": "string"
+                                    },
+                                    "manufacturer_name": {
+                                        "type": "string"
+                                    },
+                                    "model_number": {
+                                        "type": "string"
+                                    },
+                                    "system_id": {
+                                        "type": "string"
+                                    },
+                                    "serial_number": {
+                                        "type": "string"
+                                    },
+                                    "wifi_macaddress": {
+                                        "type": "string"
+                                    },
+                                    "ethernet_macaddress": {
+                                        "type": "string"
+                                    },
+                                    "wifi_name": {
+                                        "type": "string"
+                                    },
+                                    "wifi_pwd": {
+                                        "type": "string"
+                                    },
+                                    "update_date": {
+                                        "type": "string"
+                                    },
+                                    "created_user": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        },
+        "/organizations/{org_id}/gateways": {
+            "get": {
+                "tags": [
+                    "Devices"
+                ],
+                "summary": "Get all gateways in this organization",
+                "description": "The Devices endpoint returns information about the  gateways offered at a given organization. \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "title": "ArrayOfDevices",
+                            "type": "array",
+                            "items": {
+                                "title": "Devices",
+                                "type": "object",
+                                "properties": {
+                                    "device_id": {
+                                        "type": "string"
+                                    },
+                                    "org_id": {
+                                        "type": "string"
+                                    },
+                                    "bt_address": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "device_type": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "firmware": {
+                                        "type": "string"
+                                    },
+                                    "hardware_version": {
+                                        "type": "string"
+                                    },
+                                    "software_version": {
+                                        "type": "string"
+                                    },
+                                    "manufacturer_name": {
+                                        "type": "string"
+                                    },
+                                    "model_number": {
+                                        "type": "string"
+                                    },
+                                    "system_id": {
+                                        "type": "string"
+                                    },
+                                    "serial_number": {
+                                        "type": "string"
+                                    },
+                                    "wifi_macaddress": {
+                                        "type": "string"
+                                    },
+                                    "ethernet_macaddress": {
+                                        "type": "string"
+                                    },
+                                    "wifi_name": {
+                                        "type": "string"
+                                    },
+                                    "wifi_pwd": {
+                                        "type": "string"
+                                    },
+                                    "update_date": {
+                                        "type": "string"
+                                    },
+                                    "created_user": {
+                                        "type": "string"
+                                    },
+                                    "tag": {
+                                        "type": "string"
+                                    },
+                                    "device_status": {
+                                        "type": "string"
+                                    },
+                                    "device_uuid": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        },
+        "/organizations/{org_id}/peripherals": {
+            "get": {
+                "tags": [
+                    "Devices"
+                ],
+                "summary": "Get all peripherals in this organization",
+                "description": "The Devices endpoint returns information about the  peripherals offered at a given organization. \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "title": "ArrayOfDevices",
+                            "type": "array",
+                            "items": {
+                                "title": "Devices",
+                                "type": "object",
+                                "properties": {
+                                    "device_id": {
+                                        "type": "string"
+                                    },
+                                    "org_id": {
+                                        "type": "string"
+                                    },
+                                    "bt_address": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "device_type": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "firmware": {
+                                        "type": "string"
+                                    },
+                                    "hardware_version": {
+                                        "type": "string"
+                                    },
+                                    "software_version": {
+                                        "type": "string"
+                                    },
+                                    "manufacturer_name": {
+                                        "type": "string"
+                                    },
+                                    "model_number": {
+                                        "type": "string"
+                                    },
+                                    "system_id": {
+                                        "type": "string"
+                                    },
+                                    "serial_number": {
+                                        "type": "string"
+                                    },
+                                    "wifi_macaddress": {
+                                        "type": "string"
+                                    },
+                                    "ethernet_macaddress": {
+                                        "type": "string"
+                                    },
+                                    "wifi_name": {
+                                        "type": "string"
+                                    },
+                                    "wifi_pwd": {
+                                        "type": "string"
+                                    },
+                                    "update_date": {
+                                        "type": "string"
+                                    },
+                                    "created_user": {
+                                        "type": "string"
+                                    },
+                                    "tag": {
+                                        "type": "string"
+                                    },
+                                    "device_status": {
+                                        "type": "string"
+                                    },
+                                    "device_uuid": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        },
+        "/organizations/{org_id}/devices/{device_id}/uuid": {
+            "get": {
+                "tags": [
+                    "Devices"
+                ],
+                "summary": "Get uuid address for the device",
+                "description": "The Devices endpoint returns information about the  uuidaddress. \n",
+                "operationId": "getDevices",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "in": "path",
+                    "name": "device_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "title": "Devices",
+                                "type": "object",
+                                "properties": {
+                                    "device_id": {
+                                        "type": "string"
+                                    },
+                                    "device_uuid": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        },
+        "/notifications": {
+            "get": {
+                "tags": [
+                    "Notifications"
+                ],
+                "summary": "Get all notifications",
+                "description": "Notifications offered at a given User. \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "title": "ArrayOfnotifications",
+                            "type": "array",
+                            "items": {
+                                "title": "notifications",
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "string"
+                                    },
+                                    "device_type": {
+                                        "type": "string"
+                                    },
+                                    "device_token": {
+                                        "type": "string"
+                                    },
+                                    "device_name": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "string"
+                                    },
+                                    "device_uuid": {
+                                        "type": "string"
+                                    },
+                                    "created_date": {
+                                        "type": "string"
+                                    },
+                                    "lastupdated_date": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            },
+            "post": {
+                "tags": [
+                    "Notifications"
+                ],
+                "summary": "Add notifications",
+                "description": "Add Notifications with the following parameters. \n",
+                "parameters": [{
+                    "in": "body",
+                    "name": "body",
+                    "description": "Login",
+                    "required": false,
+                    "schema": {
+                        "$ref": "#/definitions/notification"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        },
+        "/notifications/{token}/{noti_stat}": {
+            "delete": {
+                "tags": [
+                    "Notifications"
+                ],
+                "summary": "Remove notifications",
+                "description": "Delete Notifications. \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "token",
+                    "description": "token",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "in": "path",
+                    "name": "noti_stat",
+                    "description": "noti_stat",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        },
+        "/proxyservers": {
+            "get": {
+                "tags": [
+                    "Proxyservers"
+                ],
+                "summary": "Proxyservers",
+                "description": "proxyservers \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "server_id": {
+                                    "type": "string"
+                                },
+                                "name": {
+                                    "type": "string"
+                                },
+                                "state": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        },
+        "/tags": {
+            "post": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Create tags",
+                "description": "Add tags \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "body",
+                    "name": "body",
+                    "description": "tags",
+                    "required": false,
+                    "schema": {
+                        "$ref": "#/definitions/tagsadd"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "title": "ArrayOftags",
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "tag_id": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        },
+        "/organizations/{org_id}/devices/:{device_id}/tags": {
+            "put": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Update tags for the device",
+                "description": "update tags \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "in": "path",
+                    "name": "device_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "in": "body",
+                    "name": "body",
+                    "description": "tags",
+                    "required": false,
+                    "schema": {
+                        "$ref": "#/definitions/tagsupdate"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            },
+            "post": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Add tags for the device",
+                "description": "Create tags \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "in": "path",
+                    "name": "device_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "in": "body",
+                    "name": "body",
+                    "description": "tags",
+                    "required": false,
+                    "schema": {
+                        "$ref": "#/definitions/tagsupdate"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        },
+        "/organizations/{org_id}/tags": {
+            "get": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "All tags",
+                "description": "returns information about the tags offered at a given organization. \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "title": "ArrayOftags",
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "tag": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        },
+        "/organizations/{org_id}/widgets": {
+            "get": {
+                "tags": [
+                    "Widgets"
+                ],
+                "summary": "Get all widgets",
+                "description": "returns information about the widgets. \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "title": "widgets",
+                            "type": "object",
+                            "properties": {
+                                "widget_id": {
+                                    "type": "string"
+                                },
+                                "device_id": {
+                                    "type": "string"
+                                },
+                                "widget_options": {
+                                    "type": "object",
+                                    "properties": {
+                                        "device_id": {
+                                            "type": "string"
+                                        },
+                                        "service_id": {
+                                            "type": "string"
+                                        },
+                                        "characteristic_id": {
+                                            "type": "string"
+                                        },
+                                        "factory_name": {
+                                            "type": "string"
+                                        },
+                                        "function_name": {
+                                            "type": "string"
+                                        },
+                                        "peripheral_uuid": {
+                                            "type": "string"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "subtitle": {
+                                            "type": "string"
+                                        },
+                                        "graph": {
+                                            "type": "object",
+                                            "properties": {
+                                                "color1": {
+                                                    "type": "string"
+                                                },
+                                                "color2": {
+                                                    "type": "string"
+                                                },
+                                                "color3": {
+                                                    "type": "string"
+                                                },
+                                                "mark1": {
+                                                    "type": "string"
+                                                },
+                                                "mark2": {
+                                                    "type": "string"
+                                                },
+                                                "max": {
+                                                    "type": "string"
+                                                },
+                                                "min": {
+                                                    "type": "string"
+                                                },
+                                                "type": {
+                                                    "type": "string"
+                                                },
+                                                "unit": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            },
+            "post": {
+                "tags": [
+                    "Widgets"
+                ],
+                "summary": "Create widget",
+                "description": "Create widget \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "in": "body",
+                    "name": "body",
+                    "description": "widgetoptions",
+                    "required": false,
+                    "schema": {
+                        "$ref": "#/definitions/widgetadd"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        },
+        "/organizations/{org_id}/widgets/{widget_id}": {
+            "get": {
+                "tags": [
+                    "Widgets"
+                ],
+                "summary": "Get a widget",
+                "description": "returns information about the widgets. \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "in": "path",
+                    "name": "widget_id",
+                    "description": "widgetid",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "title": "widgets",
+                            "type": "object",
+                            "properties": {
+                                "widget_id": {
+                                    "type": "string"
+                                },
+                                "device_id": {
+                                    "type": "string"
+                                },
+                                "widget_options": {
+                                    "type": "object",
+                                    "properties": {
+                                        "device_id": {
+                                            "type": "string"
+                                        },
+                                        "service_id": {
+                                            "type": "string"
+                                        },
+                                        "characteristic_id": {
+                                            "type": "string"
+                                        },
+                                        "factory_name": {
+                                            "type": "string"
+                                        },
+                                        "function_name": {
+                                            "type": "string"
+                                        },
+                                        "peripheral_uuid": {
+                                            "type": "string"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "subtitle": {
+                                            "type": "string"
+                                        },
+                                        "graph": {
+                                            "type": "object",
+                                            "properties": {
+                                                "color1": {
+                                                    "type": "string"
+                                                },
+                                                "color2": {
+                                                    "type": "string"
+                                                },
+                                                "color3": {
+                                                    "type": "string"
+                                                },
+                                                "mark1": {
+                                                    "type": "string"
+                                                },
+                                                "mark2": {
+                                                    "type": "string"
+                                                },
+                                                "max": {
+                                                    "type": "string"
+                                                },
+                                                "min": {
+                                                    "type": "string"
+                                                },
+                                                "type": {
+                                                    "type": "string"
+                                                },
+                                                "unit": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            },
+            "delete": {
+                "tags": [
+                    "Widgets"
+                ],
+                "summary": "Delete a widget",
+                "description": "Delete widget \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "in": "path",
+                    "name": "widget_id",
+                    "description": "widgetid",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            },
+            "put": {
+                "tags": [
+                    "Widgets"
+                ],
+                "summary": "Update a widget",
+                "description": "Update widget \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "in": "path",
+                    "name": "widget_id",
+                    "description": "widgetid",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "in": "body",
+                    "name": "body",
+                    "description": "widgetoptions",
+                    "required": false,
+                    "schema": {
+                        "$ref": "#/definitions/widgetupdate"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        },
+        "/users/me": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get user details",
+                "description": "refresh the session \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/user"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            },
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update User",
+                "description": "Update user with the following parameters \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "body",
+                    "name": "body",
+                    "description": "Update User",
+                    "required": false,
+                    "schema": {
+                        "$ref": "#/definitions/updateuser"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        },
+        "/organizations": {
+            "get": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Get all organizations",
+                "description": "All organizations \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "title": "ArrayOforganizations",
+                            "type": "array",
+                            "items": {
+                                "title": "organizations",
+                                "type": "object",
+                                "properties": {
+                                    "org_id": {
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "created_date": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "last_updated_date": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "created_user": {
+                                        "type": "string"
+                                    },
+                                    "updated_user": {
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "integer"
+                                    },
+                                    "role_id": {
+                                        "type": "integer"
+                                    },
+                                    "usercount": {
+                                        "type": "integer"
+                                    },
+                                    "devicecount": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            },
+            "post": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Add an organization",
+                "description": "Add the organization when the user dont have any organization while login and add the organization. \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "body",
+                    "name": "body",
+                    "description": "Add Organization",
+                    "required": false,
+                    "schema": {
+                        "$ref": "#/definitions/organizationadd"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        },
+        "/organizations/{org_id}": {
+            "get": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Get an organization",
+                "description": "returns information about the organization offered at a given organization.  \n",
+                "operationId": "login",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "title": "ArrayOforganization",
+                            "type": "array",
+                            "items": {
+                                "title": "organization",
+                                "type": "object",
+                                "properties": {
+                                    "org_id": {
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "created_date": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "last_updated_date": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "created_user": {
+                                        "type": "string"
+                                    },
+                                    "updated_user": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            },
+            "put": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Update an organization",
+                "description": "Update An Organization Name \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "in": "body",
+                    "name": "body",
+                    "description": "organization",
+                    "required": false,
+                    "schema": {
+                        "$ref": "#/definitions/orgnameupdate"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            },
+            "delete": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Delete An Organization",
+                "description": "Delete An Organization \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        },
+        "/organizations/{org_id}/users": {
+            "get": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Get users in this organization",
+                "description": "returns information about the user offered at a given organization.  \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "title": "user",
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "first_name": {
+                                        "type": "string"
+                                    },
+                                    "last_name": {
+                                        "type": "string"
+                                    },
+                                    "org_id": {
+                                        "type": "integer"
+                                    },
+                                    "role_id": {
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            },
+            "put": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Update organization for the user",
+                "description": "Update organization for the user \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/user"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        },
+        "/organizations/{org_id}/roles": {
+            "get": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Get user roles in this organization",
+                "description": "service for organization roles \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "title": "ArrayOforgroles",
+                            "type": "array",
+                            "items": {
+                                "title": "orgroles",
+                                "type": "object",
+                                "properties": {
+                                    "role_id": {
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        },
+        "/organizations/{org_id}/user/{user_id}": {
+            "delete": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Remove the user in the  organization",
+                "description": "Remove the user in the  organization\n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "in": "path",
+                    "name": "user_id",
+                    "description": "ID of user that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        },
+        "/organizations/{org_id}/user/{user_id}/roles": {
+            "put": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Update roles for the user",
+                "description": "Update Userdetails \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "in": "path",
+                    "name": "user_id",
+                    "description": "ID of user that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }, {
+                    "in": "body",
+                    "name": "body",
+                    "description": "role_id",
+                    "required": false,
+                    "schema": {
+                        "$ref": "#/definitions/role_id"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/rolemessage"
+
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        },
+        "/getauthtoken": {
+            "post": {
+                "tags": [
+                    "Authtoken"
+                ],
+                "summary": "Authtoken",
+                "description": "Authtoken \n",
+                "operationId": "Authtoken",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "body",
+                    "name": "body",
+                    "description": "Authtoken",
+                    "required": false,
+                    "schema": {
+                        "$ref": "#/definitions/authtoken"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/authtokenresponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        }
+
+    },
+    "securityDefinitions": {
+        "api_key": {
+            "type": "apiKey",
+            "name": "authorization",
+            "in": "header"
+        }
+    },
+    "definitions": {
+        "login": {
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "keepmelogin": {
+                    "type": "string"
+                }
+            }
+        },
+        "user": {
+            "properties": {
+                "domain_id": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "org_id": {
+                    "type": "string"
+                },
+                "org_name": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                },
+                "refresh_token": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "updateuser": {
+            "properties": {
+                "first_name": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "deviceadd": {
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "device_type": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "serial_number": {
+                    "type": "string"
+                },
+                "firmware": {
+                    "type": "string"
+                },
+                "hardware_version": {
+                    "type": "string"
+                },
+                "software_version": {
+                    "type": "string"
+                },
+                "manufacturer_name": {
+                    "type": "string"
+                },
+                "model_number": {
+                    "type": "string"
+                },
+                "system_id": {
+                    "type": "string"
+                },
+                "bt_address": {
+                    "type": "string"
+                },
+                "wifi_macaddress": {
+                    "type": "string"
+                },
+                "ethernet_macaddress": {
+                    "type": "string"
+                },
+                "wifi_name": {
+                    "type": "string"
+                },
+                "wifi_pwd": {
+                    "type": "string"
+                },
+                "tag_ids": {
+                    "type": "array",
+                    "items": {
+                        "properties": {
+                            "tag_id": {
+                                "type": "integer",
+                                "format": "int64"
+                            }
+                        }
+                    }
+                },
+                "device_uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "deviceupdate": {
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "device_type": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "serial_number": {
+                    "type": "string"
+                },
+                "firmware": {
+                    "type": "string"
+                },
+                "hardware_version": {
+                    "type": "string"
+                },
+                "software_version": {
+                    "type": "string"
+                },
+                "manufacturer_name": {
+                    "type": "string"
+                },
+                "model_number": {
+                    "type": "string"
+                },
+                "system_id": {
+                    "type": "string"
+                },
+                "bt_address": {
+                    "type": "string"
+                },
+                "device_uuid": {
+                    "type": "string"
+                },
+                "wifi_macaddress": {
+                    "type": "string"
+                },
+                "ethernet_macaddress": {
+                    "type": "string"
+                },
+                "wifi_name": {
+                    "type": "string"
+                },
+                "wifi_pwd": {
+                    "type": "string"
+                },
+                "tag_ids": {
+                    "type": "array",
+                    "items": {
+                        "properties": {
+                            "tag_id": {
+                                "type": "integer",
+                                "format": "int64"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "notification": {
+            "properties": {
+                "device_type": {
+                    "type": "string"
+                },
+                "device_name": {
+                    "type": "string"
+                },
+                "device_token": {
+                    "type": "string"
+                },
+                "device_uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "tagsadd": {
+            "properties": {
+                "tags": {
+                    "type": "string"
+                }
+            }
+        },
+        "tagsupdate": {
+            "properties": {
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/tag"
+                    }
+                }
+            }
+        },
+        "tag": {
+            "type": "string"
+        },
+        "widgetadd": {
+            "properties": {
+                "device_id": {
+                    "type": "integer"
+                },
+                "widget_options": {
+                    "type": "object",
+                    "properties": {
+                        "device_id": {
+                            "type": "string"
+                        },
+                        "service_id": {
+                            "type": "string"
+                        },
+                        "characteristic_id": {
+                            "type": "string"
+                        },
+                        "factory_name": {
+                            "type": "string"
+                        },
+                        "function_name": {
+                            "type": "string"
+                        },
+                        "peripheral_uuid": {
+                            "type": "string"
+                        },
+                        "title": {
+                            "type": "string"
+                        },
+                        "subtitle": {
+                            "type": "string"
+                        },
+                        "graph": {
+                            "type": "object",
+                            "properties": {
+                                "color1": {
+                                    "type": "string"
+                                },
+                                "color2": {
+                                    "type": "string"
+                                },
+                                "color3": {
+                                    "type": "string"
+                                },
+                                "mark1": {
+                                    "type": "string"
+                                },
+                                "mark2": {
+                                    "type": "string"
+                                },
+                                "max": {
+                                    "type": "string"
+                                },
+                                "min": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                },
+                                "unit": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "widgetupdate": {
+            "properties": {
+                "widget_options": {
+                    "type": "object",
+                    "properties": {
+                        "device_id": {
+                            "type": "string"
+                        },
+                        "service_id": {
+                            "type": "string"
+                        },
+                        "characteristic_id": {
+                            "type": "string"
+                        },
+                        "factory_name": {
+                            "type": "string"
+                        },
+                        "function_name": {
+                            "type": "string"
+                        },
+                        "peripheral_uuid": {
+                            "type": "string"
+                        },
+                        "title": {
+                            "type": "string"
+                        },
+                        "subtitle": {
+                            "type": "string"
+                        },
+                        "graph": {
+                            "type": "object",
+                            "properties": {
+                                "color1": {
+                                    "type": "string"
+                                },
+                                "color2": {
+                                    "type": "string"
+                                },
+                                "color3": {
+                                    "type": "string"
+                                },
+                                "mark1": {
+                                    "type": "string"
+                                },
+                                "mark2": {
+                                    "type": "string"
+                                },
+                                "max": {
+                                    "type": "string"
+                                },
+                                "min": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                },
+                                "unit": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "organizationadd": {
+            "properties": {
+                "org_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "orgnameupdate": {
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "rolemessage": {
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "role_id": {
+            "properties": {
+                "role_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "authtoken": {
+            "properties": {
+                "orgid": {
+                    "type": "string"
+                },
+                "gatewayId": {
+                    "type": "string"
+                },
+                "isGateway": {
+                    "type": "string"
+                },
+                "filterScan": {
+                    "type": "string"
+                }
+            }
+        },
+        "authtokenresponse": {
+            "properties": {
+                "access_token": {
+                    "type": "string"
+                },
+                "expires_in": {
+                    "type": "string"
+                },
+                "refresh_token": {
+                    "type": "string"
+                },
+                "issued_at": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
