@@ -6,7 +6,7 @@
     },
     "host": "app.blueapp.io",
     "schemes": [
-        "http"
+        "https"
     ],
     "basePath": "/v1",
     "produces": [
