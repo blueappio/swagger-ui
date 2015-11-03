@@ -20,7 +20,6 @@
                 ],
                 "summary": "Login",
                 "description": "Login the user with the following parameters \n",
-                "operationId": "login",
                 "consumes": [
                     "application/json"
                 ],
@@ -240,7 +239,6 @@
                 ],
                 "summary": "Get all devices in this organization",
                 "description": "The Devices endpoint returns information about the  devices offered at a given organization. \n",
-                "operationId": "getDevices",
                 "consumes": [
                     "application/json"
                 ],
@@ -397,7 +395,6 @@
                 ],
                 "summary": "Get a device in this organization",
                 "description": "The Devices endpoint returns information about the  devices offered at a given organization. \n",
-                "operationId": "getDevices",
                 "consumes": [
                     "application/json"
                 ],
@@ -555,7 +552,6 @@
                 ],
                 "summary": "Update device in this organization",
                 "description": "Update your selected device with the following parameters \n",
-                "operationId": "getDevices",
                 "consumes": [
                     "application/json"
                 ],
@@ -608,7 +604,6 @@
                 ],
                 "summary": "Find a device",
                 "description": "Get the Devices with the macaddress. \n",
-                "operationId": "getDevices",
                 "consumes": [
                     "application/json"
                 ],
@@ -937,7 +932,6 @@
                 ],
                 "summary": "Get uuid address for the device",
                 "description": "The Devices endpoint returns information about the  uuidaddress. \n",
-                "operationId": "getDevices",
                 "consumes": [
                     "application/json"
                 ],
@@ -1901,7 +1895,6 @@
                 ],
                 "summary": "Get an organization",
                 "description": "returns information about the organization offered at a given organization.  \n",
-                "operationId": "login",
                 "consumes": [
                     "application/json"
                 ],
@@ -2281,7 +2274,6 @@
                 ],
                 "summary": "Authtoken",
                 "description": "Authtoken \n",
-                "operationId": "Authtoken",
                 "consumes": [
                     "application/json"
                 ],
