@@ -186,7 +186,7 @@
         "/organizations/{org_id}/devicetypes": {
             "get": {
                 "tags": [
-                    "Device Type"
+                    "DeviceType"
                 ],
                 "summary": "Get devicetypes",
                 "description": "devicetype. \n",
