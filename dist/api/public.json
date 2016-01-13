@@ -2339,6 +2339,9 @@
                 },
                 "keepmelogin": {
                     "type": "string"
+                },
+                "host": {
+                    "type": "string"
                 }
             }
         },
