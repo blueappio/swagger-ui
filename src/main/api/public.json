@@ -140,6 +140,92 @@
                 "security": [{
                     "authorization": []
                 }]
+            },
+            "post": {
+                "tags": [
+                    "Applications"
+                ],
+                "summary": "Add Application",
+                "description": "Insert Application with the following parameters \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                },{
+                    "in": "body",
+                    "name": "body",
+                    "description": "Insert Application",
+                    "required": false,
+                    "schema": {
+                        "$ref": "#/definitions/applicationadd"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successfull response"
+                    },
+                    "403": {
+                        "description": "Invalid Details"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            },
+            "put": {
+                "tags": [
+                    "Applications"
+                ],
+                "summary": "Update Application",
+                "description": "Update Application with the following parameters \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [ {
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                },{
+                    "in": "body",
+                    "name": "body",
+                    "description": "Insert Application",
+                    "required": false,
+                    "schema": {
+                        "$ref": "#/definitions/applicationedit"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successfull response"
+                    },
+                    "403": {
+                        "description": "Invalid Details"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
             }
         },
         "/organizations/{org_id}/applications/{app_id}": {
@@ -173,6 +259,48 @@
                 "responses": {
                     "200": {
                         "description": "Successful response"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            },
+            "delete": {
+                "tags": [
+                    "Applications"
+                ],
+                "summary": "Delete Application",
+                "description": "Delete Application with the following parameters \n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [ {
+                    "in": "path",
+                    "name": "org_id",
+                    "description": "ID of organization that needs to be fetched",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                },{
+                    "in": "path",
+                    "name": "app_id",
+                    "description": "ID of application",
+                    "required": true,
+                    "type": "integer",
+                    "format": "int64"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successfull response"
+                    },
+                    "403": {
+                        "description": "Invalid Details"
                     },
                     "500": {
                         "description": "Internal Server Error"
@@ -1152,7 +1280,7 @@
                 }]
             }
         },
-        "/organizations/{org_id}/devices/:{device_id}/tags": {
+        "/organizations/{org_id}/devices/{device_id}/tags": {
             "put": {
                 "tags": [
                     "Tags"
@@ -2721,6 +2849,35 @@
                     "type": "string"
                 },
                 "filterScan": {
+                    "type": "string"
+                }
+            }
+        },
+        "applicationadd": {
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                }
+            }
+        },
+        "applicationedit": {
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                },
+                "appid": {
                     "type": "string"
                 }
             }
