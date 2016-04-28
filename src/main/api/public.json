@@ -1197,15 +1197,42 @@
                 "security": [{
                     "authorization": []
                 }]
-            }
-        },
-        "/notifications/{token}/{noti_stat}": {
-            "delete": {
+            },
+            "Delete": {
                 "tags": [
                     "Notifications"
                 ],
-                "summary": "Remove notifications",
-                "description": "Delete Notifications. \n",
+                "summary": "Delete notifications",
+                "description": "Delete Notifications with the following parameters. \n",
+                "parameters": [{
+                    "in": "body",
+                    "name": "body",
+                    "description": "Login",
+                    "required": false,
+                    "schema": {
+                        "$ref": "#/definitions/deletenotification"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "authorization": []
+                }]
+            }
+        },
+        "/notifications/{token}/{noti_stat}": {
+            "Put": {
+                "tags": [
+                    "Notifications"
+                ],
+                "summary": "Update notifications",
+                "description": "Update Notifications. \n",
                 "consumes": [
                     "application/json"
                 ],
@@ -2863,6 +2890,12 @@
                 },
                 "version": {
                     "type": "string"
+                },
+                "filtername": {
+                    "type": "string"
+                },
+                "filteruuid": {
+                    "type": "string"
                 }
             }
         },
@@ -2875,6 +2908,12 @@
                     "type": "string"
                 },
                 "version": {
+                    "type": "string"
+                },
+                "filtername": {
+                    "type": "string"
+                },
+                "filteruuid": {
                     "type": "string"
                 },
                 "appid": {
