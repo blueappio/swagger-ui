@@ -1198,7 +1198,7 @@
                     "authorization": []
                 }]
             },
-            "Delete": {
+            "delete": {
                 "tags": [
                     "Notifications"
                 ],
@@ -1227,7 +1227,7 @@
             }
         },
         "/notifications/{token}/{noti_stat}": {
-            "Put": {
+            "put": {
                 "tags": [
                     "Notifications"
                 ],
@@ -2679,6 +2679,13 @@
                     "type": "string"
                 },
                 "device_uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "deletenotification": {
+            "properties": {
+                "id": {
                     "type": "string"
                 }
             }
